@@ -35,21 +35,27 @@
       </div>
 
       <div class="action py-2">
-        <a href="#" class="add-button no-underline" v-if="!isCreating" @click="isCreating =
+        <a href="#" class="add-button no-underline" v-if="!isCreating" @click.prevent="isCreating =
           !isCreating">Add Task</a>
-        <div class="add-card" v-else>
+        <form @submit.prevent="addTask()" class="add-card" v-else>
           <div class="card mb-2">
             <div class="card-body d-flex flex-column p-0">
-              <input class="form-control border-0 mb-2" placeholder="Title" type="text">
-              <textarea class="form-control border-0 small" placeholder="Description" rows="3"></textarea>
+              <input class="form-control border-0 mb-2" placeholder="Title" type="text" v-model="form.title">
+              <textarea class="form-control border-0 small" placeholder="Description" rows="3"
+                v-model="form.description"></textarea>
+              <select name="category" id="category" class="form-select" v-model="form.category">
+                <option value="" disabled>Select Category</option>
+                <option value="prioritas">Prioritas</option>
+                <option value="penting">Penting</option>
+                <option value="kurang penting">Kurang Penting</option>
+              </select>
             </div>
           </div>
           <div class="button-wrapper d-flex">
             <button class="btn btn-primary me-2">Save</button>
-            <button class="btn btn-outline-secondary" @click="isCreating =
-              !isCreating">Cancel</button>
+            <button type="reset" class="btn btn-outline-secondary" @click="resetForm">Cancel</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -93,6 +99,11 @@ export default {
           isDone: false
         },
       ],
+      form: {
+        title: '',
+        description: '',
+        category: '',
+      },
       searchQuery: '',
       category: '',
       isCreating: false,
@@ -111,6 +122,21 @@ export default {
         });
       }
       return result
+    }
+  },
+  methods: {
+    addTask() {
+      if (this.form.title == '' || this.form.category == '' || this.form.description == '') return alert('Isi form dengan lengkap')
+      if (this.tasks.find(task => task.title === this.form.title)) return alert('Task sudah ada')
+      this.form.isDone = false
+      this.tasks.push({ ...this.form })
+      this.resetForm()
+    },
+    resetForm() {
+      this.isCreating = false
+      for (const key in this.form) {
+        this.form[key] = ''
+      }
     }
   },
   layout(context) {
