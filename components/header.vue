@@ -15,7 +15,7 @@
                         <a class="nav-link" href="/latihan">Latihan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="/artikel">Artikel</a>
                     </li>
                 </ul>
             </div>
