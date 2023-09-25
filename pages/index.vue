@@ -45,9 +45,9 @@
                 v-model="form.description"></textarea>
               <select name="category" id="category" class="form-select" v-model="form.category">
                 <option value="" disabled>Select Category</option>
-                <option value="prioritas">Prioritas</option>
-                <option value="penting">Penting</option>
-                <option value="kurang penting">Kurang Penting</option>
+                <option value="Prioritas">Prioritas</option>
+                <option value="Penting">Penting</option>
+                <option value="Kurang penting">Kurang Penting</option>
               </select>
             </div>
           </div>
